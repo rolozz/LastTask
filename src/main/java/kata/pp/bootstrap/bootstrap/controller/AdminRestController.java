@@ -1,5 +1,6 @@
 package kata.pp.bootstrap.bootstrap.controller;
 
+import kata.pp.bootstrap.bootstrap.dto.UserDTO;
 import kata.pp.bootstrap.bootstrap.model.Role;
 import kata.pp.bootstrap.bootstrap.model.User;
 import kata.pp.bootstrap.bootstrap.service.RoleService;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
 
 @Slf4j
 @RestController
@@ -46,10 +48,19 @@ public class AdminRestController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<HttpStatus> createUser(@RequestBody User user) {
-        userService.save(user);
-        log.info("REST User created: {}", user);
+    public ResponseEntity<HttpStatus> createUser(@RequestBody UserDTO userDTO) {
+        userService.save(convertToUser(userDTO));
+        log.info("REST User created: {}", userDTO);
         return ResponseEntity.ok(HttpStatus.CREATED);
+    }
+
+    private User convertToUser(UserDTO userDTO) {
+        User user = new User();
+        user.setUsername(userDTO.getUsername());
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword());
+        user.setRoles(userDTO.getRole());
+        return user;
     }
 
     @PatchMapping("/update/{id}")
