@@ -9,6 +9,7 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+    static-path-pattern: /static/**
   jpa:
     hibernate:
       ddl-auto: create-drop

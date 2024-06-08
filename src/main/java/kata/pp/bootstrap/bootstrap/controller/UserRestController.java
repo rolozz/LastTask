@@ -4,29 +4,27 @@ package kata.pp.bootstrap.bootstrap.controller;
 import kata.pp.bootstrap.bootstrap.model.User;
 import kata.pp.bootstrap.bootstrap.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
-@Controller
-@RequestMapping("user")
-public class UserController {
+@RestController
+@RequestMapping("/api/user")
+public class UserRestController {
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserRestController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("")
-    public String showUsers(Model model, Principal principal) {
+    @GetMapping
+    public ResponseEntity<User> userInfo(Principal principal) {
         User user = userService.findByUsername(principal.getName());
-        model.addAttribute("user", user);
-        model.addAttribute("page", "PAGE_USER");
-        return "user";
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

@@ -19,14 +19,16 @@ import java.util.Set;
 @Entity
 @Table(name = "roles")
 @NoArgsConstructor
-@Setter
-@Getter
 public class Role implements GrantedAuthority {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter
+    @Getter
     private Long id;
     @Column(name = "name_role")
+    @Setter
+    @Getter
     private String name;
 
     @ManyToMany(mappedBy = "roles")

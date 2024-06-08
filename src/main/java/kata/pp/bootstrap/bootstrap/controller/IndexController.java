@@ -9,19 +9,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 import java.security.Principal;
 
 @Controller
 @RequestMapping("/")
 public class IndexController {
     private final UserService userService;
-    //private final RoleService roleService;
+
 
     @Autowired
-    public IndexController(UserService userService ) {
+    public IndexController(UserService userService) {
         this.userService = userService;
-        //this.roleService = roleService;
     }
 
     @GetMapping("")
@@ -35,9 +33,10 @@ public class IndexController {
                 .contains("ROLE_ADMIN")) {
             model.addAttribute("page", "PAGE_ADMIN");
             return "redirect:/admin";
-        }else  {
+        } else {
             model.addAttribute("page", "PAGE_USER");
-            return "redirect:/user";}
+            return "redirect:/user";
+        }
     }
 }
 
