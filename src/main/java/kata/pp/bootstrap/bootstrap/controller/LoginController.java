@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Slf4j
 @Controller
 public class LoginController {
-UserService userService;
-@Autowired
+    UserService userService;
+
+    @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
-        @GetMapping("/login")
+    @GetMapping("/login")
     public String loginPage() {
         log.info("REST Login page");
         return "login";

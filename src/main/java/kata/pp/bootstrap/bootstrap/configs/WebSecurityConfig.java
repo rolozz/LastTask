@@ -1,7 +1,7 @@
 package kata.pp.bootstrap.bootstrap.configs;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -19,16 +19,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class WebSecurityConfig implements WebMvcConfigurer {
     private final SuccessUserHandler successUserHandler;
     private final UserDetailsService userService;
 
-
-    @Autowired
-    public WebSecurityConfig(SuccessUserHandler successUserHandler, UserDetailsService userService) {
-        this.successUserHandler = successUserHandler;
-        this.userService = userService;
-    }
 
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/user").setViewName("user");
