@@ -41,7 +41,8 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authenticationProvider(daoAuthenticationProvider())
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/**").hasAnyAuthority("ROLE_ADMIN")
+                        .requestMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
+                        .requestMatchers("/api/admin/**").hasAnyAuthority("ROLE_ADMIN")
                         .requestMatchers("/user").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                         .requestMatchers("/api/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                         .requestMatchers("/login").permitAll()

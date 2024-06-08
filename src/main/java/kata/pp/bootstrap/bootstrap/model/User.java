@@ -35,14 +35,11 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "Username cannot be empty")
     @Column(name = "username", unique = true)
     private String username;
-    @NotBlank(message = "Password cannot be empty")
     @Column(name = "password")
     private String password;
     @Email(message = "Email should be valid")
-    @NotBlank(message = "Email cannot be empty")
     @Column(name = "email", unique = true)
     private String email;
 
@@ -86,4 +83,17 @@ public class User implements UserDetails {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", roles=" + roles.stream()
+                .map(Role::getName)
+                .toList()
+                .toString() +
+                '}';
+    }
 }

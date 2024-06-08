@@ -2,6 +2,7 @@ package kata.pp.bootstrap.bootstrap.controller;
 
 import kata.pp.bootstrap.bootstrap.model.User;
 import kata.pp.bootstrap.bootstrap.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 
+@Slf4j
 @Controller
 @RequestMapping("/")
 public class IndexController {
@@ -32,9 +34,11 @@ public class IndexController {
                 .toList()
                 .contains("ROLE_ADMIN")) {
             model.addAttribute("page", "PAGE_ADMIN");
+            log.info("Redirecting to PAGE_ADMIN: {}", user);
             return "redirect:/admin";
         } else {
             model.addAttribute("page", "PAGE_USER");
+            log.info("Redirecting to PAGE_USER: {}", user);
             return "redirect:/user";
         }
     }
