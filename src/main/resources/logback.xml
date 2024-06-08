@@ -1,0 +1,11 @@
+<configuration>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <file>log.log</file>
+            <encoder>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            </encoder>
+    </appender>
+    <Logger name="kata.pp.bootstrap.bootstrap" level="info">
+    <Appender-Ref ref="CONSOLE"/>
+</Logger>
+</configuration>

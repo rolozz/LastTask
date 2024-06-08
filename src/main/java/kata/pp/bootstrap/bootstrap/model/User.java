@@ -17,6 +17,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -29,19 +30,20 @@ import java.util.Set;
 @NoArgsConstructor
 @Setter
 @Getter
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
     @Column(name = "username", unique = true)
-    private String username;
+    String username;
     @Column(name = "password")
-    private String password;
+    String password;
     @Email(message = "Email should be valid")
     @Column(name = "email", unique = true)
-    private String email;
+    String email;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

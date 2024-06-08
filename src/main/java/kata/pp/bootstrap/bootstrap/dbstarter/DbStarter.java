@@ -6,12 +6,14 @@ import kata.pp.bootstrap.bootstrap.model.User;
 import kata.pp.bootstrap.bootstrap.service.RoleService;
 import kata.pp.bootstrap.bootstrap.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class DbStarter {
     private final UserService userService;
     private final RoleService roleService;
@@ -32,5 +34,6 @@ public class DbStarter {
                 "user@user.com",
                 "qwerty",
                 Set.of(user)));
+        log.info("DB initialized");
     }
 }

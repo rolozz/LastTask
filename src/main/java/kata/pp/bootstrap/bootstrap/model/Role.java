@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Set;
@@ -19,20 +20,21 @@ import java.util.Set;
 @Entity
 @Table(name = "roles")
 @NoArgsConstructor
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class Role implements GrantedAuthority {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter
     @Getter
-    private Long id;
+    Long id;
     @Column(name = "name_role")
     @Setter
     @Getter
-    private String name;
+    String name;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    Set<User> users;
 
     public Role(Long id, String name) {
         this.id = id;
