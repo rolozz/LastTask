@@ -37,9 +37,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                 //.authenticationProvider(daoAuthenticationProvider())
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
-                        //.requestMatchers("/api/admin/**").hasAnyAuthority("ROLE_ADMIN")
                         .requestMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-                        //.requestMatchers("/api/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                         .requestMatchers("/login").permitAll()
                         .anyRequest().authenticated()
                 )
