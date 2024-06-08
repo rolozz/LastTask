@@ -1,5 +1,5 @@
 async function getUser() {
-    fetch("/api/user")
+    fetch("/user/api")
         .then(res => res.json())
         .then(user => {
             const roles = user.roles.map(role => role.name).join(',')

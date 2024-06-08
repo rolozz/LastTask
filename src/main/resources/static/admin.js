@@ -8,7 +8,7 @@ $(async function () {
 async function allUsers() {
     const table = $('#bodyAllUserTable');
     table.empty()
-    fetch("api/admin")
+    fetch("admin/api")
         .then(r => r.json())
         .then(data => {
             data.forEach(user => {
@@ -38,7 +38,7 @@ function deleteUser() {
     const deleteForm = document.forms["formDeleteUser"];
     deleteForm.addEventListener("submit", function (event) {
         event.preventDefault();
-        fetch("api/admin/" + deleteForm.id.value, {
+        fetch("admin/api/" + deleteForm.id.value, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -73,7 +73,7 @@ async function viewDeleteModal(id) {
 
     $('#deleteRolesUser').empty();
 
-    await fetch("api/admin/roles")
+    await fetch("admin/api/roles")
         .then(r => r.json())
         .then(roles => {
             roles.forEach(role => {
@@ -98,7 +98,7 @@ async function viewDeleteModal(id) {
 
 async function getUser(id) {
 
-    let url = "api/admin/" + id;
+    let url = "admin/api/" + id;
     let response = await fetch(url);
     return await response.json();
 }
@@ -116,7 +116,7 @@ function editCurrentUser() {
                 });
         }
 
-        fetch("api/admin/update/" + editForm.id.value, {
+        fetch("admin/api/update/" + editForm.id.value, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -156,7 +156,7 @@ async function viewEditModal(id) {
 
     $('#editRolesUser').empty();
 
-    await fetch("api/admin/roles")
+    await fetch("admin/api/roles")
         .then(r => r.json())
         .then(roles => {
             roles.forEach(role => {
@@ -179,7 +179,7 @@ async function viewEditModal(id) {
         });
 }
 
-const url ='/api/admin'
+const url ='/admin/api'
 
 async function newUser() {
     try {
