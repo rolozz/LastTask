@@ -70,6 +70,7 @@ public class AdminRestController {
 
     @PatchMapping("/update/{id}")
     public ResponseEntity<HttpStatus> update(@PathVariable("id") Long id, @RequestBody UserCUDDTO userCUDDTO) {
+
         userService.update(toUser(userCUDDTO));
         log.info("REST User updated: {}", userCUDDTO);
         return ResponseEntity.ok(HttpStatus.OK);

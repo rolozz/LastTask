@@ -201,7 +201,6 @@ async function newUser() {
                         id: formAddNewUser.roles.options[i].value,
                         name: formAddNewUser.roles.options[i].text
                     })
-                    break
                 }
             }
             fetch(url+'/create', {

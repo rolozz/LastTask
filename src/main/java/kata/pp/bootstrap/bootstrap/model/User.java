@@ -41,7 +41,6 @@ public class User implements UserDetails {
     String username;
     @Column(name = "password")
     String password;
-    @Email(message = "Email should be valid")
     @Column(name = "email", unique = true)
     String email;
 

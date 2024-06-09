@@ -114,15 +114,15 @@
                                                 <div class="form-group text-center">
                                                     <label for="usernameNewUser">Username</label>
                                                     <input type="text" class="form-control" name="username"
-                                                           id="usernameNewUser" placeholder="Username"/>
+                                                           id="usernameNewUser" placeholder="Username" required/>
                                                     <br>
                                                     <label for="emailNewUser">Email</label>
-                                                    <input type="text" class="form-control" name="email"
-                                                           id="emailNewUser" placeholder="Email"/>
+                                                    <input type="email" class="form-control" name="email"
+                                                           id="emailNewUser" placeholder="Email" required/>
                                                     <br>
                                                     <label for="passwordNewUser">Password</label>
                                                     <input type="text" class="form-control" name="password"
-                                                           id="passwordNewUser" placeholder="password"/>
+                                                           id="passwordNewUser" placeholder="password" required/>
                                                     <br>
                                                     <div>
                                                         <label for="rolesNewUser">Role</label>
@@ -203,7 +203,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="emailUpdate" class="form-label fw-bold">Email</label>
-                        <input type="text" class="form-control" name="email"
+                        <input type="email" class="form-control" name="email"
                                id="emailUpdate"
                                minlength="2" maxlength="30" required/>
                     </div>
