@@ -1,7 +1,5 @@
 package kata.pp.bootstrap.bootstrap.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import kata.pp.bootstrap.bootstrap.model.Role;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,7 +11,7 @@ import java.util.Set;
 @Setter
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserRDTO {
+public class UserDTO {
 
     Long id;
     String username;

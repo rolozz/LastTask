@@ -37,11 +37,11 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @Column(name = "username", unique = true)
+    @Column(name = "username")
     String username;
     @Column(name = "password")
     String password;
-    @Column(name = "email", unique = true)
+    @Column(name = "email")
     String email;
 
     @ManyToMany(fetch = FetchType.LAZY)

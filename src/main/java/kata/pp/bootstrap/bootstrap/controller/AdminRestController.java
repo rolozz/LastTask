@@ -1,8 +1,7 @@
 package kata.pp.bootstrap.bootstrap.controller;
 
 import kata.pp.bootstrap.bootstrap.dto.RoleDTO;
-import kata.pp.bootstrap.bootstrap.dto.UserCUDDTO;
-import kata.pp.bootstrap.bootstrap.dto.UserRDTO;
+import kata.pp.bootstrap.bootstrap.dto.UserDTO;
 import kata.pp.bootstrap.bootstrap.model.Role;
 import kata.pp.bootstrap.bootstrap.model.User;
 import kata.pp.bootstrap.bootstrap.service.RoleService;
@@ -40,23 +39,23 @@ public class AdminRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserRDTO>> userList() {
+    public ResponseEntity<List<UserDTO>> userList() {
         log.info("REST: {}", userService.getAll());
-        List<UserRDTO> users = userService.getAll().stream().map(this::toUserRDTO).toList();
+        List<UserDTO> users = userService.getAll().stream().map(this::toUserDTO).toList();
         return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserRDTO> findUser(@PathVariable("id") Long id) {
-        UserRDTO user = toUserRDTO(userService.findById(id));
+    public ResponseEntity<UserDTO> findUser(@PathVariable("id") Long id) {
+        UserDTO user = toUserDTO(userService.findById(id));
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 
     @PostMapping("/create")
-    public ResponseEntity<HttpStatus> createUser(@RequestBody UserCUDDTO userCUDDTO) {
-        userService.save(toUser(userCUDDTO));
-        log.info("REST User created: {}", userCUDDTO);
+    public ResponseEntity<HttpStatus> createUser(@RequestBody UserDTO userDTO) {
+        userService.save(toUser(userDTO));
+        log.info("REST User created: {}", userDTO);
         return ResponseEntity.ok(HttpStatus.CREATED);
     }
 
@@ -69,10 +68,10 @@ public class AdminRestController {
     }
 
     @PatchMapping("/update/{id}")
-    public ResponseEntity<HttpStatus> update(@PathVariable("id") Long id, @RequestBody UserCUDDTO userCUDDTO) {
+    public ResponseEntity<HttpStatus> update(@PathVariable("id") Long id, @RequestBody UserDTO userDTO) {
 
-        userService.update(toUser(userCUDDTO));
-        log.info("REST User updated: {}", userCUDDTO);
+        userService.update(toUser(userDTO));
+        log.info("REST User updated: {}", userDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
@@ -91,16 +90,16 @@ public class AdminRestController {
 
     }
 
-    private User toUser(UserCUDDTO userCUDDTO) {
-        return modelMapper.map(userCUDDTO, User.class);
+    private User toUser(UserDTO userDTO) {
+        return modelMapper.map(userDTO, User.class);
     }
 
     private Role toRole(RoleDTO roleDTO) {
         return modelMapper.map(roleDTO, Role.class);
     }
 
-    private UserRDTO toUserRDTO(User user) {
-        return modelMapper.map(user, UserRDTO.class);
+    private UserDTO toUserDTO(User user) {
+        return modelMapper.map(user, UserDTO.class);
     }
 
 

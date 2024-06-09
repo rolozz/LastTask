@@ -1,7 +1,7 @@
 package kata.pp.bootstrap.bootstrap.controller;
 
 
-import kata.pp.bootstrap.bootstrap.dto.UserRDTO;
+import kata.pp.bootstrap.bootstrap.dto.UserDTO;
 import kata.pp.bootstrap.bootstrap.model.User;
 import kata.pp.bootstrap.bootstrap.service.UserService;
 import lombok.AllArgsConstructor;
@@ -24,15 +24,15 @@ public class UserRestController {
     private final ModelMapper modelMapper;
 
     @GetMapping
-    public ResponseEntity<UserRDTO> userInfo(Principal principal) {
+    public ResponseEntity<UserDTO> userInfo(Principal principal) {
         User user = userService.findByUsername(principal.getName());
-        UserRDTO userRDTO = toUserRDTO(user);
-        log.info("REST: {}", userRDTO);
-        return new ResponseEntity<>(userRDTO, HttpStatus.OK);
+        UserDTO userDTO = toUserDTO(user);
+        log.info("REST: {}", userDTO);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
-    private UserRDTO toUserRDTO(User user) {
-        return modelMapper.map(user, UserRDTO.class);
+    private UserDTO toUserDTO(User user) {
+        return modelMapper.map(user, UserDTO.class);
     }
 
 }
