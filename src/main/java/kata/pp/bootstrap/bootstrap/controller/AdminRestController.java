@@ -1,11 +1,14 @@
 package kata.pp.bootstrap.bootstrap.controller;
 
-import kata.pp.bootstrap.bootstrap.dto.UserDTO;
+import kata.pp.bootstrap.bootstrap.dto.RoleDTO;
+import kata.pp.bootstrap.bootstrap.dto.UserCUDDTO;
+import kata.pp.bootstrap.bootstrap.dto.UserRDTO;
 import kata.pp.bootstrap.bootstrap.model.Role;
 import kata.pp.bootstrap.bootstrap.model.User;
 import kata.pp.bootstrap.bootstrap.service.RoleService;
 import kata.pp.bootstrap.bootstrap.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,46 +30,48 @@ import java.util.List;
 public class AdminRestController {
     private final UserService userService;
     private final RoleService roleService;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public AdminRestController(UserService userService, RoleService roleService) {
+    public AdminRestController(UserService userService, RoleService roleService, ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
         this.userService = userService;
         this.roleService = roleService;
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> userList() {
+    public ResponseEntity<List<UserRDTO>> userList() {
         log.info("REST: {}", userService.getAll());
-        return ResponseEntity.ok(userService.getAll());
+        List<UserRDTO> users = userService.getAll().stream().map(this::toUserRDTO).toList();
+        return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> findUser(@PathVariable("id") Long id) {
-        User user = userService.findById(id);
+    public ResponseEntity<UserRDTO> findUser(@PathVariable("id") Long id) {
+        UserRDTO user = toUserRDTO(userService.findById(id));
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 
     @PostMapping("/create")
-    public ResponseEntity<HttpStatus> createUser(@RequestBody UserDTO userDTO) {
-        userService.save(convertToUser(userDTO));
-        log.info("REST User created: {}", userDTO);
+    public ResponseEntity<HttpStatus> createUser(@RequestBody UserCUDDTO userCUDDTO) {
+        userService.save(toUser(userCUDDTO));
+        log.info("REST User created: {}", userCUDDTO);
         return ResponseEntity.ok(HttpStatus.CREATED);
     }
 
-    private User convertToUser(UserDTO userDTO) {
-        User user = new User();
-        user.setUsername(userDTO.getUsername());
-        user.setEmail(userDTO.getEmail());
-        user.setPassword(userDTO.getPassword());
-        user.setRoles(userDTO.getRole());
-        return user;
+
+    @PostMapping("/create/role")
+    public ResponseEntity<HttpStatus> createRole(@RequestBody RoleDTO roleDTO) {
+        roleService.addRole(toRole(roleDTO));
+        log.info("REST Role created: {}", roleDTO);
+        return ResponseEntity.ok(HttpStatus.CREATED);
     }
 
     @PatchMapping("/update/{id}")
-    public ResponseEntity<HttpStatus> update(@PathVariable("id") Long id, @RequestBody User user) {
-        userService.update(user);
-        log.info("REST User updated: {}", user);
+    public ResponseEntity<HttpStatus> update(@PathVariable("id") Long id, @RequestBody UserCUDDTO userCUDDTO) {
+        userService.update(toUser(userCUDDTO));
+        log.info("REST User updated: {}", userCUDDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
@@ -79,7 +84,23 @@ public class AdminRestController {
     }
 
     @GetMapping("/roles")
-    public List<Role> getRoles() {
-        return roleService.getRoles();
+    public List<RoleDTO> getRoles() {
+        List<RoleDTO> roles = roleService.getRoles().stream().map(role -> modelMapper.map(role, RoleDTO.class)).toList();
+        return roles;
+
     }
+
+    private User toUser(UserCUDDTO userCUDDTO) {
+        return modelMapper.map(userCUDDTO, User.class);
+    }
+
+    private Role toRole(RoleDTO roleDTO) {
+        return modelMapper.map(roleDTO, Role.class);
+    }
+
+    private UserRDTO toUserRDTO(User user) {
+        return modelMapper.map(user, UserRDTO.class);
+    }
+
+
 }
