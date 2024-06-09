@@ -128,10 +128,13 @@ function editCurrentUser() {
                 password: editForm.password.value,
                 roles: editUserRoles
             })
-        }).then(() => {
+        }).then(response => {
+            if (response.ok) {
             $('#editFormCloseButton').click();
             return allUsers();
-        })
+        }else{
+            alert("Something went wrong!");
+        }})
             .catch((error) => {
                 alert(error);
             });
@@ -203,7 +206,7 @@ async function newUser() {
                     })
                 }
             }
-            fetch(url+'/create', {
+            fetch(url + '/create', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
@@ -212,11 +215,16 @@ async function newUser() {
                     password: formAddNewUser.password.value,
                     roles: rolesNewUser
                 })
-            }).then(() => {
-                formAddNewUser.reset()
-                // window.location.assign("http://localhost:8080/admin");
-                $('#home-tab').click();
-                allUsers()
+            }).then(response => {
+                if (response.ok) {
+                    console.log("Saved")
+                    formAddNewUser.reset()
+                    // window.location.assign("http://localhost:8080/admin");
+                    $('#home-tab').click();
+                    allUsers()
+                } else {
+                    alert("Username /// already exists")
+                }
             })
         })
     } catch(e) {
