@@ -14,7 +14,7 @@ spring:
     properties:
       hibernate:
         show_sql: true
-jwt_secret: secret
+
 
 
 

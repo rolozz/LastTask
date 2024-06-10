@@ -39,8 +39,6 @@ dependencies {
 	testImplementation("ch.qos.logback:logback-classic:1.4.14")
 	implementation("org.slf4j:slf4j-api:2.0.12")
 	implementation("org.modelmapper:modelmapper:3.1.1")
-	implementation("com.auth0:java-jwt:4.4.0")
-
 
 }
 
