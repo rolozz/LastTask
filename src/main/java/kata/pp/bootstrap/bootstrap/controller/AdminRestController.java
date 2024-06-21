@@ -6,6 +6,7 @@ import kata.pp.bootstrap.bootstrap.model.Role;
 import kata.pp.bootstrap.bootstrap.model.User;
 import kata.pp.bootstrap.bootstrap.service.RoleService;
 import kata.pp.bootstrap.bootstrap.service.UserService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,18 +26,19 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@AllArgsConstructor
 @RequestMapping("/admin/api")
 public class AdminRestController {
     private final UserService userService;
     private final RoleService roleService;
     private final ModelMapper modelMapper;
 
-    @Autowired
-    public AdminRestController(UserService userService, RoleService roleService, ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-        this.userService = userService;
-        this.roleService = roleService;
-    }
+    //@Autowired
+            //public AdminRestController(UserService userService, RoleService roleService, ModelMapper modelMapper) {
+        //    this.modelMapper = modelMapper;
+        //    this.userService = userService;
+        //    this.roleService = roleService;
+        //}
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> userList() {

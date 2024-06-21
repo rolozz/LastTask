@@ -2,6 +2,7 @@ package kata.pp.bootstrap.bootstrap.service;
 
 import kata.pp.bootstrap.bootstrap.model.User;
 import kata.pp.bootstrap.bootstrap.reposirory.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
