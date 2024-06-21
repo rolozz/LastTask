@@ -23,12 +23,12 @@ import java.util.Set;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class Role implements GrantedAuthority {
     @Id
-    @Column(name = "id")
+    //@Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter
     @Getter
     Long id;
-    @Column(name = "name_role")
+    //@Column(name = "name_role")
     @Setter
     @Getter
     String name;
