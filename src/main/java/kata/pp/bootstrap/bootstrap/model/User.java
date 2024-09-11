@@ -21,6 +21,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -91,7 +92,7 @@ public class User implements UserDetails {
                 ", email='" + email + '\'' +
                 ", roles=" + roles.stream()
                 .map(Role::getName)
-                .toList()
+                .collect(Collectors.toList())
                 .toString() +
                 '}';
     }

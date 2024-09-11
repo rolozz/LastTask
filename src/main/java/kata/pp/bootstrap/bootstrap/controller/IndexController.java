@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.util.stream.Collectors;
 
 @Slf4j
 @AllArgsConstructor
@@ -27,7 +28,7 @@ public class IndexController {
         if (user.getAuthorities()
                 .stream()
                 .map(GrantedAuthority::getAuthority)
-                .toList()
+                .collect(Collectors.toList())
                 .contains("ROLE_ADMIN")) {
             model.addAttribute("page", "PAGE_ADMIN");
             log.info("Redirecting to PAGE_ADMIN: {}", user);

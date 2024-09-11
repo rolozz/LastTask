@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -43,7 +44,7 @@ public class AdminRestController {
     @GetMapping
     public ResponseEntity<List<UserDTO>> userList() {
         log.info("REST: {}", userService.getAll());
-        List<UserDTO> users = userService.getAll().stream().map(this::toUserDTO).toList();
+        List<UserDTO> users = userService.getAll().stream().map(this::toUserDTO).collect(Collectors.toList());
         return ResponseEntity.ok(users);
     }
 
@@ -87,7 +88,7 @@ public class AdminRestController {
 
     @GetMapping("/roles")
     public List<RoleDTO> getRoles() {
-        List<RoleDTO> roles = roleService.getRoles().stream().map(role -> modelMapper.map(role, RoleDTO.class)).toList();
+        List<RoleDTO> roles = roleService.getRoles().stream().map(role -> modelMapper.map(role, RoleDTO.class)).collect(Collectors.toList());
         return roles;
 
     }
